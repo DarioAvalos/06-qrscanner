@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BarcodeScanner, SupportedFormat } from '@capacitor-community/barcode-scanner';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { DataLocalService } from 'src/app/services/data-local.service';
 
 @Component({
   selector: 'app-tab1',
@@ -11,15 +12,16 @@ export class Tab1Page {
 
   public inProcess: boolean = false;
 
-  constructor( private alertCtrl: AlertController, private toastCtrl: ToastController ) {}
+  constructor( private alertCtrl: AlertController,  
+               private dataLocal: DataLocalService ) {}
 
   // ionViewDidEnter() {
   //   console.log('viewDidEnter');
   // }
 
-  // ionViewWillEnter() {
-  //   console.log('viewWillEnter');
-  // }
+  ionViewWillEnter() {
+    console.log('viewWillEnter');
+  }
 
   ionViewDidLeave() {
     console.log('viewDidLeave');
@@ -53,6 +55,10 @@ export class Tab1Page {
       // this.stopScan()
       this.presentAlert();
     }
+
+    if ( !BarcodeScanner.stopScan() ) {
+      this.dataLocal.guardarRegistro( "QRCode" , "https://fernando-herrera.com" );
+    }
  
   }
  
@@ -65,7 +71,7 @@ export class Tab1Page {
     const alert = await this.alertCtrl.create({
       header: '¡Excelente!',
       // subHeader: 'La asistencia se registró correctamente',
-      message: 'La asistencia se guardó correctamente',
+      message: 'El codigo se guardó correctamente',
       buttons: [
         {
           text: 'OK',
@@ -85,5 +91,9 @@ export class Tab1Page {
  
     await alert.present();
   }
-
+  
+  cancel() {
+    this.inProcess = false;
+    this.stopScan();
+  }
 }

@@ -17,11 +17,31 @@
     <swiper-container>
 
         <swiper-slide>
-            <ion-button (click)="scan()" expand="full" fill="outline" size="large" shape="round" *ngIf="!inProcess">
+
+            <ion-button (click)="scan()" 
+                        expand="full" 
+                        fill="outline" 
+                        size="large" 
+                        shape="round" 
+                        *ngIf="!inProcess">
                 ScanCode
             </ion-button>
+
+            <ion-button class="cancel-buttons"
+                        (click)="cancel()" 
+                        expand="full" 
+                        fill="outline" 
+                        size="large" 
+                        shape="round"
+                        *ngIf="inProcess">
+                Cancel
+            </ion-button>
+
         </swiper-slide>
 
     </swiper-container>
+
+    <div class="scan-box" *ngIf="inProcess">
+    </div>
 
 </ion-content>
