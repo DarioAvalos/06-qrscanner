@@ -1,0 +1,27 @@
+
+<ion-content>
+
+    <!--Esto es como se hacia antes en Ionic 5 
+        <ion-slides>
+        <ion-slide>
+
+            <ion-button (click)="scan()" expand="full" fill="outline" >
+                Click me
+            </ion-button>
+            
+        </ion-slide>
+    </ion-slides> -->
+
+
+    <!-- Esto es como se hace en Ionic 7 -->
+    <swiper-container>
+
+        <swiper-slide>
+            <ion-button (click)="scan()" expand="full" fill="outline" size="large" shape="round" *ngIf="!inProcess">
+                ScanCode
+            </ion-button>
+        </swiper-slide>
+
+    </swiper-container>
+
+</ion-content>

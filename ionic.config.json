@@ -1,0 +1,7 @@
+{
+  "name": "qtscanner",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
