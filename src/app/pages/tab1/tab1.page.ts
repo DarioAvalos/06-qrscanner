@@ -11,6 +11,7 @@ import { DataLocalService } from 'src/app/services/data-local.service';
 export class Tab1Page {
 
   public inProcess: boolean = false;
+  result: string | undefined;
 
   constructor( private alertCtrl: AlertController,  
                private dataLocal: DataLocalService ) {}
@@ -19,9 +20,9 @@ export class Tab1Page {
   //   console.log('viewDidEnter');
   // }
 
-  ionViewWillEnter() {
-    console.log('viewWillEnter');
-  }
+  // ionViewWillEnter() {
+  //   console.log('viewWillEnter');
+  // }
 
   ionViewDidLeave() {
     console.log('viewDidLeave');
@@ -53,12 +54,16 @@ export class Tab1Page {
     if (result.hasContent) {
       console.log(result.content); // log the raw scanned content
       // this.stopScan()
+      this.result = result.content;
+
+      this.dataLocal.guardarRegistro( result.format as string , result.content as string );
+
       this.presentAlert();
     }
 
-    if ( !BarcodeScanner.stopScan() ) {
-      this.dataLocal.guardarRegistro( "QRCode" , "https://fernando-herrera.com" );
-    }
+    // if ( result.format ) {
+    //   this.dataLocal.guardarRegistro( result.format as string , result.content as string );
+    // }
  
   }
  
@@ -70,7 +75,7 @@ export class Tab1Page {
   async presentAlert() {
     const alert = await this.alertCtrl.create({
       header: '¡Excelente!',
-      // subHeader: 'La asistencia se registró correctamente',
+      subHeader: this.result,
       message: 'El codigo se guardó correctamente',
       buttons: [
         {
