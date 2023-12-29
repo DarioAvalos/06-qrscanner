@@ -59,6 +59,8 @@ export class Tab1Page {
       this.dataLocal.guardarRegistro( result.format as string , result.content as string );
 
       this.presentAlert();
+
+      this.abrirRegistro( result.content as string );
     }
 
     // if ( result.format ) {
@@ -95,6 +97,12 @@ export class Tab1Page {
  
  
     await alert.present();
+  }
+
+  abrirRegistro( registro: any ) {
+
+    this.dataLocal.abrirRegistros( registro );
+
   }
   
   cancel() {

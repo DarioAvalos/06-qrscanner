@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Registro } from '../models/registro.model';
 import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
+import { Browser } from '@capacitor/browser';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,8 @@ export class DataLocalService {
 
   guardados: Registro[] = [];
 
-  constructor( private storage: Storage) { 
+  constructor( private storage: Storage,
+               private navCtrl: NavController ) { 
     //Cargar registros
     this.init();
     this.cargarStorage();
@@ -39,6 +42,21 @@ export class DataLocalService {
     console.log ( this.guardados );
 
     this.storage.set('registros', this.guardados);
+
+  }
+
+  async abrirRegistros( registro: Registro ) {
+
+    this.navCtrl.navigateForward('/tabs/tab2');
+
+    switch ( registro.type ) {
+
+      case 'http':
+        
+          await Browser.open({ url: registro.text, windowName: '_system'  });
+          
+      break;
+    }
 
   }
 
