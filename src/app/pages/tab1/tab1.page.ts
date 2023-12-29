@@ -25,12 +25,12 @@ export class Tab1Page {
   // }
 
   ionViewDidLeave() {
-    console.log('viewDidLeave');
+    // console.log('viewDidLeave');
     BarcodeScanner.stopScan();
   }
   
   ionViewWillLeave() {
-    console.log('viewWillLeave');
+    // console.log('viewWillLeave');
     window.document.querySelector('body')?.classList.remove('scanner-active');
   }
 
