@@ -43,6 +43,8 @@ export class DataLocalService {
 
     this.storage.set('registros', this.guardados);
 
+    this.abrirRegistros( nuevoRegistro );
+
   }
 
   async abrirRegistros( registro: Registro ) {
@@ -53,8 +55,14 @@ export class DataLocalService {
 
       case 'http':
         
-          await Browser.open({ url: registro.text, windowName: '_system'  });
+        await Browser.open({ url: registro.text, windowName: '_system'  });
           
+      break;
+
+      case 'geo':
+        
+        await this.navCtrl.navigateForward('/tabs/tab2/mapa/' + registro.text);
+      
       break;
     }
 
